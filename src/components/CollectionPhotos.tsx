@@ -1,11 +1,12 @@
 "use client";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useSWR from "swr"
 import { Root } from "@/types/responseListPhotos";
 import { fetcher } from "@/helper/fetcher";
 import { usePhotos } from "@/store/store";
 import { MdOutlineFavoriteBorder }  from "react-icons/md"
+import Loader from "./Loader";
 
 type userProps = {
   user: {
@@ -18,7 +19,7 @@ type userProps = {
 export default  function CollectionPhotos({user}:userProps) {
   const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID
 
-  const addPhotos = usePhotos(state => state.addPhotos)
+  const {addPhotos, photos} = usePhotos()
   const [page, setPage] = useState(1)
   const { data } = useSWR<Root>(`https://api.unsplash.com/search/photos?page=${page}&query=office&client_id=${CLIENT_ID}`, fetcher)
   const numberPages = 200
@@ -33,30 +34,29 @@ export default  function CollectionPhotos({user}:userProps) {
     if(page === 1) setPage(numberPages)
     else  setPage( p => p - 1)
   }
-
-  function addToFavotitePhoto(url:string) {
-    addPhotos(url)
-  }
+  console.log(photos)
   return (
     <>
     <ul className="grid grid-cols-gallery gap-4 my-14 min-h-[540px]"> 
-      {data?.results?.map(item => (
-        <li key={item.id} className="h-64 rounded-xl relative overflow-hidden">
+    {!data && <Loader /> }
+      {data?.results?.map((item, index = 0) => (
+        <li key={item.id} className="wrapper-image">
           <Image src={item.urls.regular}  
           fill={true}  
           alt="gallery-photo" 
-          className="object-cover hover:opacity-75"  
+          className="image"  
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"/>
-          {user && <div className="right-1 absolute" onClick={ () => addToFavotitePhoto(item.urls.regular)}>
-            <MdOutlineFavoriteBorder  style={{ color: "white", fontSize: "30px"}}/>
+          {user && <div className="right-1 absolute" onClick={ () => addPhotos(item.urls.regular)}>
+            
+            <MdOutlineFavoriteBorder  style={{ color:`${item.urls.regular === photos[++index] ? "red" : "white"} `, fontSize: "30px"}}/>
           </div>}
         </li>
       ))}
     </ul>
 
-    <div>
-      <button onClick={previousPage}>Previous</button>
-      <button onClick={nextPage}>Next</button>
+    <div className="flex justify-center ">
+      <button className="button mr-3" onClick={previousPage}>Previous</button>
+      <button className="button" onClick={nextPage}>Next</button>
     </div>
     </>
   )

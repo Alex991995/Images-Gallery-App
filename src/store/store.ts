@@ -1,17 +1,28 @@
 import  {create} from 'zustand';
-import { persist, createJSONStorage } from 'zustand/middleware';
+import {persist, devtools} from 'zustand/middleware';
 
 type UsePhotos = {
   photos: string[],
-  addPhotos: (photo:string) => void
+  addPhotos: (photo:string) => void,
+  removePhotos:(photo:string) => void
 }
 
 
 export const usePhotos = create<UsePhotos>()(
-  persist(set => ({
-  photos: [],
-  addPhotos:(photo:string) => set( (state) =>  {
-  return {photos: [...state.photos, photo] }
-  })}),
-  {name: "photo-storage", storage: createJSONStorage(() => sessionStorage)}
+  persist(devtools((set,get) => ({
+    photos: [],
+
+    addPhotos:(photo:string) => {
+      const isExist = get().photos.find(item => item === photo)
+      if(!isExist) { 
+        set( {photos: [...get().photos, photo ] })
+      }
+    },
+
+    removePhotos:(photo:string) => {
+      const newPhotos = get().photos.filter(item => item !== photo)
+      set( {photos: newPhotos})
+    }
+  })),
+  {name: "photo-storage"}
 ))
