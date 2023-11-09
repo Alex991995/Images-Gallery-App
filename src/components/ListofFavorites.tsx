@@ -9,7 +9,7 @@ function ListofFavorites() {
 
   console.log(photos)
   return (
-    <ul className="grid grid-cols-gallery gap-4 my-14 min-h-[540px]">
+    <ul className="grid grid-cols-gallery gap-4 my-14 min-h-[533px]">
       {photos?.map((img, index) => (
         <li key={index} className="wrapper-image">
           <Image src={img}  

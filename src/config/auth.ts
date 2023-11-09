@@ -8,5 +8,6 @@ export const authConfig:AuthOptions = {
       clientId: process.env.GITHUB_CLIENT_ID!,
       clientSecret: process.env.GITHUB_SECRET!
     })
-  ]
+  ],
+  secret: process.env.NEXTAUTH_SECRET
 }

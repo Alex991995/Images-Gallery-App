@@ -41,15 +41,16 @@ export default  function CollectionPhotos({user}:userProps) {
     {!data && <Loader /> }
       {data?.results?.map((item, index = 0) => (
         <li key={item.id} className="wrapper-image">
+
           <Image src={item.urls.regular}  
           fill={true}  
           alt="gallery-photo" 
           className="image"  
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"/>
-          {user && <div className="right-1 absolute" onClick={ () => addPhotos(item.urls.regular)}>
+          {user && <span className="right-1 absolute" onClick={ () => addPhotos(item.urls.regular)}>
             
-            <MdOutlineFavoriteBorder  style={{ color:`${item.urls.regular === photos[++index] ? "red" : "white"} `, fontSize: "30px"}}/>
-          </div>}
+            <MdOutlineFavoriteBorder  style={{ color:`${photos.includes(item.urls.regular) ? "red" : "white"} `, fontSize: "30px"}}/>
+          </span>}
         </li>
       ))}
     </ul>

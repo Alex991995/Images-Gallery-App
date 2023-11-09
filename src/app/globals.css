@@ -4,7 +4,7 @@
 
 .box{
   @apply md:container md:mx-auto;
-  min-height: calc(100vh - 112px);
+  min-height: calc(100vh - 168px);
 }
 
 .button {
@@ -21,12 +21,6 @@
   border-radius: 0.75rem;
   position: relative;
   overflow: hidden;
-  &>:last-child {
-    display: none;
-  }
-  &:hover>:last-child {
-    display: block;
-  }
 }
 
 
