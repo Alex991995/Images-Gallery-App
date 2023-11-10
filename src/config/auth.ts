@@ -9,5 +9,18 @@ export const authConfig:AuthOptions = {
       clientSecret: process.env.GITHUB_SECRET!
     })
   ],
-  secret: process.env.NEXTAUTH_SECRET
+  secret: process.env.NEXTAUTH_SECRET,
+  cookies: {
+    sessionToken: {
+      name: `__Secure-next-auth.session-token`, 
+      options: { 
+        httpOnly: true,
+        sameSite: 'lax',
+        path: '/',
+        secure: true,
+        domain: process.env.NEXTAUTH_URL
+      }
+    },
+  }
+  
 }
