@@ -1,4 +1,3 @@
-import Link from "next/link";
 import Navigation from "./Navigation";
 
 const navItems = [

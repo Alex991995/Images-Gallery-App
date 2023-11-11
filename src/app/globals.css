@@ -3,8 +3,15 @@
 @tailwind utilities;
 
 .box{
-  @apply md:container md:mx-auto;
-  min-height: calc(100vh - 168px);
+  @apply container mx-auto;
+  min-height: calc(100vh - 128px);
+}
+
+.list-photos {
+  display: grid;
+  gap: 1rem;
+  margin: 3.5rem 0.75rem;
+  min-height: 533px;
 }
 
 .button {
