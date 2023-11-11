@@ -10,27 +10,15 @@ export const authConfig:AuthOptions = {
     })
   ],
   secret: process.env.NEXTAUTH_SECRET,
-  cookies: {
-    sessionToken: {
-      name: `__Secure-next-auth.session-token`, 
-      options: { 
-        httpOnly: true,
-        sameSite: 'lax',
-        path: '/',
-        secure: true,
-        domain: process.env.NEXTAUTH_URL
-      }
-    },
-  }
-  // callbacks: {
-  //   async jwt({ token, account, profile }) {
+  callbacks: {
+    async jwt({ token, account, profile }) {
 
-  //     if (account) {
-  //       token.accessToken = account.access_token
-  //       token.id = profile?.name
-  //     }
-  //     return token
-  //   }
-  // }
+      if (account) {
+        token.accessToken = account.access_token
+        token.id = profile?.name
+      }
+      return token
+    }
+  }
   
 }
