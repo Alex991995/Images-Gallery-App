@@ -7,7 +7,6 @@ function ListofFavorites() {
   const photos = usePhotos(state => state.photos)
   const removePhotos = usePhotos(state => state.removePhotos)
 
-  console.log(photos)
   return (
     <ul className="list-photos grid-cols-gallery">
       {photos?.map((img, index) => (

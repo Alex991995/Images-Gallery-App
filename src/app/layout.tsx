@@ -21,11 +21,15 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Providers>
+          <div className='flex flex-col min-h-screen '>
+
+          
           <Header />
-          <main className='box'>
+          <main className='box flex-1'>
             {children}
           </main>
           <Footer />
+          </div>
         </Providers>
       </body>
     </html>
