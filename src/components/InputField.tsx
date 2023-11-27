@@ -32,6 +32,8 @@ export default  function InputField({data}:{data:any}) {
     }
   }, [value])
 
+  console.log(data)
+
   return (
   <>
   <input 
