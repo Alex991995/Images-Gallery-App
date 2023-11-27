@@ -8,6 +8,7 @@ export  async function GET(req: Request) {
 
   const response = await fetch(`https://api.unsplash.com/search/photos?query=${query}&order_by=${order}&client_id=${process.env.CLIENT_ID}`)
   const data = await response.json()
+  console.log(data)
   return NextResponse.json(data)
 
 }

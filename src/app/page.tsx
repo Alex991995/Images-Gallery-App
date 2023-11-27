@@ -17,12 +17,12 @@ type PageProps = {
 
 export default async function Home({searchParams}:PageProps ) {
   const session = await getServerSession(authConfig);
-  const BASU_URL = process.env.BASU_URL
+  const BASE_URL = process.env.BASE_URL
 
-  const query = searchParams.query || '';
-  const order= searchParams.order_by || "relevant";
+  const query = searchParams.query;
+  const order= searchParams.order_by;
 
-  const res = await fetch(`${BASU_URL}/api/search?query=${query}&order_by=${order}`)
+  const res = await fetch(`${BASE_URL}/api/search?query=${query}&order_by=${order}`)
   const data:Root = await res.json();
 
   const arrValue = ["nature", "food", "office", "cities", "space"];
@@ -30,6 +30,7 @@ export default async function Home({searchParams}:PageProps ) {
 
   // const page = searchParams.page;
 
+  // console.log(res)
   return (
     <section>
       <InputField data={data}/>
