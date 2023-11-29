@@ -28,9 +28,7 @@ export default async function Home({searchParams}:PageProps ) {
   const arrValue = ["nature", "food", "office", "cities", "space"];
   const arrOrder = ["relevant", "latest"];
 
-  // const page = searchParams.page;
-
-  // console.log(res)
+  console.log(arrValue)
   return (
     <section>
       <InputField data={data}/>
