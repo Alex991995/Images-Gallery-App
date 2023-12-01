@@ -2,6 +2,7 @@ export interface Root {
   total: number
   total_pages: number
   results: Result[]
+  errors?: string
 }
 
 export interface Result {

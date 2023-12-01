@@ -20,6 +20,7 @@ function SelectComponent({arrOrder}:SelectProps) {
     if(value) params.set("order_by", value)
     else params.delete("order_by")
     replace(`${pathname}?${params.toString()}`)
+    console.log("order")
   },[value, pathname, replace, searchParams])
 
 

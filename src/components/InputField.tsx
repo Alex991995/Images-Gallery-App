@@ -32,11 +32,11 @@ export default  function InputField({data}:{data:any}) {
     }
   }, [value])
 
-  console.log(data)
+  // console.log(searchParams.get("query"))
 
   return (
   <>
-  <input 
+  <input
   value={value}
   onChange={e => setValue(e.target.value)}
   type="text" 

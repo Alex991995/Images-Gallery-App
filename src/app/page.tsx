@@ -5,11 +5,12 @@ import CardPhoto from "@/components/CardPhoto";
 import { Root } from "@/types/responseListPhotos";
 import SelectOrder from "@/components/SelectOrder";
 import SelectValue from "@/components/SelectValue";
+import Pagination from "@/components/Pagination";
 
 
 type PageProps = {
   searchParams: {
-    page: number,
+    page: string,
     query: string,
     order_by: string
   }
@@ -21,14 +22,20 @@ export default async function Home({searchParams}:PageProps ) {
 
   const query = searchParams.query;
   const order= searchParams.order_by;
+  const page = searchParams.page;
 
-  const res = await fetch(`${BASE_URL}/api/search?query=${query}&order_by=${order}`)
+  // console.log(page)
+
+  const res = await fetch(`${BASE_URL}/api/search?query=${query}&order_by=${order}&page=${page}`)
   const data:Root = await res.json();
+
+  if(data.errors) {
+    throw new Error(data.errors);
+  }
 
   const arrValue = ["nature", "food", "office", "cities", "space"];
   const arrOrder = ["relevant", "latest"];
 
-  console.log(arrValue)
   return (
     <section>
       <InputField data={data}/>
@@ -41,6 +48,7 @@ export default async function Home({searchParams}:PageProps ) {
           <CardPhoto key={item.id} item={item}/>
         ))}
       </ul>
+      <Pagination />
     </section>
   )
 }
