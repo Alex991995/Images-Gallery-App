@@ -1,67 +1,43 @@
 "use client"
 
-import { usePage } from "@/store/store";
 import { useSearchParams, usePathname, useRouter  } from "next/navigation";
+import { useDebouncedCallback } from 'use-debounce';
 import { useEffect, useRef, useState } from "react";
-import { useDebouncedCallback } from "use-debounce";
-
 
 export default  function InputField() {
   const searchParams = useSearchParams()
   const pathname = usePathname()
-  const { replace} = useRouter()
+  const { replace } = useRouter()
+  const currentQuery = searchParams.get("query")
 
-  const [value, setValue] = useState('')
-  const [debouncedValue, setDebouncedValue] = useState<string>("")
-  const {resetPage } = usePage(({resetPage}) => ({resetPage}))
- 
-  const ref = useRef("")
-
-  // function f() {
-  //   console.log('fsdws')
-  // }
-  // console.log(debouncedValue)
-  // EFFECT: Change param
-
-  useEffect( () => { 
-    const params = new URLSearchParams(searchParams)
-    if(debouncedValue){
-      params.set("query", debouncedValue); 
-      resetPage()
-    } 
-    else params.delete("query")
-    replace(`${pathname}?${params.toString()}`)
-    ref.current = ""
-  },[debouncedValue, pathname, replace, searchParams, resetPage])
-
-
-
-    // EFFECT: Debounce Input Value
-  useEffect( () => {
-    const timer = setTimeout( ()=> {
-      setDebouncedValue(value)
-      ref.current = value
-    }, 500)
+  // const [value, setValue] = useState(searchParams.get("query")?.toString())
   
-    return () => {
-      clearTimeout(timer)
+  const handelSearch = useDebouncedCallback((value:string) => {
+    const params = new URLSearchParams(searchParams)
+    if(currentQuery !== value){
+      params.set("page", "1"); 
+      params.set("query", value);
     }
-  }, [value])
+    else if(currentQuery == value)params.set("query", value); 
+    else params.delete("query")
+    // setValue(value)
+    replace(`${pathname}?${params.toString()}`)
+  }, 300)  
 
+//   useEffect( ()=> {
+//     setValue(currentQuery!)
+//   },[currentQuery])
+// console.log(value)
  
-
-
   return (
   <>
-  
     <input
-    value={ref.current ?? value}
-    onChange={e => setValue(e.target.value)}
-    type="text" 
-    placeholder="Type here" 
-    className="input input-bordered input-info w-full max-w-xs block p-3 m-auto mt-3" />
- 
-  </>
+      defaultValue={searchParams.get("query")?.toString()}
+      onChange={e => handelSearch(e.target.value)}
+      type="text" 
+      placeholder="Type here" 
+      className="input input-bordered input-info w-full max-w-xs block p-3 m-auto mt-3" />  
+</>
   );
 }
 

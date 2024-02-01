@@ -2,7 +2,6 @@ import Navigation from "./Navigation";
 
 const navItems = [
   {label: "Home", href: "/"},
-  
 ]
 
 export default  function Header() {
