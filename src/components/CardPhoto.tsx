@@ -1,7 +1,7 @@
 "use client"
 import Image from "next/image";
 import { Result } from "@/types/responseListPhotos";
-import {  useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { usePhotos } from "@/store/store";
 import { MdOutlineFavoriteBorder }  from "react-icons/md"
 
