@@ -2,12 +2,11 @@ import { getServerSession } from "next-auth/next"
 import { authConfig } from "@/config/auth";
 
 import InputField from "@/components/InputField";
-import CardPhoto from "@/components/CardPhoto";
 import SelectOrder from "@/components/SelectOrder";
 import SelectValue from "@/components/SelectValue";
 import Pagination from "@/components/Pagination";
-
-import { getPhotos } from "@/services/getResponse";
+import DisplayPhotos from "@/components/DisplayPhotos";
+import { Suspense } from "react"
 
 export type  PageProps = {
   searchParams: {
@@ -21,11 +20,11 @@ export default async function Home({searchParams}:PageProps ) {
   const session = await getServerSession(authConfig);
   const BASE_URL = process.env.BASE_URL
 
-  const query = searchParams.query || 'food';
-  const order = searchParams.order_by;
-  const page = searchParams.page || '1';
-
-  const data = await getPhotos(query, order, page)
+  const objParams = {
+    query: searchParams.query || 'food',
+    order: searchParams.order_by,
+    page: searchParams.page || '1',
+  }
 
   const arrValue = ["nature", "food", "office", "cities", "space"];
   const arrOrder = ["relevant", "latest"];
@@ -38,13 +37,9 @@ export default async function Home({searchParams}:PageProps ) {
         <SelectOrder  arrOrder={arrOrder} />
       </div>
       <Pagination />
-
-      <ul className="list-photos grid-cols-gallery"> 
-        {data?.results?.map(item => (
-          <CardPhoto key={item.id} item={item}/>
-        ))}
-      </ul>
-     
+      <Suspense  fallback={<span className="loading loading-bars loading-lg absolute top-1/2 left-1/2"></span>}> 
+        <DisplayPhotos objParams={objParams}/>   
+      </Suspense>
     </section>
   )
 }

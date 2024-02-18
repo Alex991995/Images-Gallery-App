@@ -10,6 +10,7 @@ type ResultProps = {
 }
 
 function CardPhoto({item}:ResultProps) {
+ 
   const session = useSession()
   const {addPhotos, photos} = usePhotos()
   
