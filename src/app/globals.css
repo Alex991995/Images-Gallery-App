@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 .box{
   @apply container mx-auto;
   /* min-height: calc(100vh - 128px); */
@@ -10,8 +11,9 @@
 .list-photos {
   display: grid;
   gap: 1rem;
-  margin: 3.5rem 0.75rem;
+  margin: 0 1rem 1rem 1rem;
   min-height: 533px;
+
 }
 
 .button {

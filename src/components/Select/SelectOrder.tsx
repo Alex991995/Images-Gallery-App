@@ -24,7 +24,7 @@ function SelectComponent({arrOrder}:SelectProps) {
 
 
   return (
-    <select value={value} onChange={(event) => setValue(event.target.value)}>
+    <select className="outline-none" value={value} onChange={(event) => setValue(event.target.value)}>
         {arrOrder.map((item, index) => (
         <option key={index}>{item}</option> 
       ))}

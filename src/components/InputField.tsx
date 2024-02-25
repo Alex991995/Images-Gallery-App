@@ -32,7 +32,8 @@ export default  function InputField() {
   return (
   <>
     <input
-      defaultValue={searchParams.get("query")?.toString()}
+      // defaultValue={searchParams.get("query")?.toString()}
+      defaultValue={searchParams.get("query") || ''}
       onChange={e => handelSearch(e.target.value)}
       type="text" 
       placeholder="Type here" 

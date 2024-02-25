@@ -1,16 +1,21 @@
 "use client"
+import { range, pagesCutting } from "@/helpers/functionHelpers"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 
-function Pagination() {
+
+function Pagination({perPage}:{perPage:string}) {
   const searchParams = useSearchParams()
   const pathname = usePathname()
   const { replace } = useRouter()
   // The API has only 200 pages
-  const wholePage = 200
+  const wholePage = 20
+
+  let currentPage = Number(searchParams.get('page')) || 1
+  const getPagesCut = pagesCutting(wholePage, currentPage)
+  const numberPages = range(getPagesCut.start, getPagesCut.end)
 
   function nextPage() {
     const params = new URLSearchParams(searchParams)
-    let currentPage = Number(searchParams.get('page')) || 1
     if(currentPage){
       if(currentPage === wholePage) currentPage = 1
       else ++currentPage
@@ -22,7 +27,6 @@ function Pagination() {
 
   function previousPage() {
     const params = new URLSearchParams(searchParams)
-    let currentPage = Number(searchParams.get('page')) || 1
     if(currentPage){
       if(currentPage === 1) currentPage = 200
       else --currentPage
@@ -31,11 +35,23 @@ function Pagination() {
     else params.delete('page')
     replace(`${pathname}?${params.toString()}`)
   }
+
+  function fetchSpecificPage(page:number) {
+    const params = new URLSearchParams(searchParams)
+    params.set('page', String(page))
+    replace(`${pathname}?${params.toString()}`)
+  }
   
   return (
-    <div className="flex justify-center mb-4">
-      <button className="button mr-3" onClick={previousPage}>Previous</button>
-      <button className="button" onClick={nextPage}>Next</button>
+    <div className="flex justify-center mb-4 gap-1 join ">
+      <button className="join-item btn" onClick={previousPage}>«</button>
+      {numberPages.map(page =>(
+        <button 
+          key={page} 
+          className={`join-item btn ${currentPage === page ? "bg-green-500" : ""}`} 
+          onClick={() => fetchSpecificPage(page)}>{page}</button>
+      ))}
+      <button className="join-item btn" onClick={nextPage}>»</button>
     </div>
   );
 }
