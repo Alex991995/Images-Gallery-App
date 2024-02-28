@@ -1,19 +1,30 @@
 export function range(start:number, end:number) {
-  return [...Array(end).keys()].map(el => el + start)
+  let arr = []
+  for (let i = start; i <= end; i++) {
+    arr.push(i)
+  }
+  return arr
 }
-
+ 
 export function pagesCutting(wholePage:number, currentPage:number) {
-  let pagesCutCount = 5
-  const ceiling = Math.ceil(pagesCutCount / 2)
-  const floor = Math.floor(pagesCutCount / 2)
+  let pagesCutNumber = 5
+  const ceiling = Math.ceil(pagesCutNumber / 2)
+  const floor = Math.floor(pagesCutNumber / 2)
 
-  if(currentPage >= 1 && currentPage <= ceiling) {
-    return {start: 1, end: pagesCutCount + 1}
+  // если номер текущей странице меньше или ровно ceiling(3) тогда 
+  // мы имеем диапозон с 1 страницу и до pagesCutNumber
+  if(currentPage <= ceiling) {
+    return {start: 1, end: pagesCutNumber}
   }
+
+  // если номер текущей странице + floor(2)  больше или ровно wholePage(200) тогда 
+  // мы имеем диапозон с wholePage - 4, до wholePage
   else if (currentPage + floor >= wholePage){
-    return  {start: wholePage - pagesCutCount, end: wholePage}
+    return  {start: wholePage - pagesCutNumber + 1 , end: wholePage}
   }
+
+    // тут у нас просто середина 2 элемента слева и 2 справа
   else {
-    return {start: currentPage - ceiling, end:currentPage + floor}
+    return {start: currentPage - floor, end:currentPage + floor}
   }
 }

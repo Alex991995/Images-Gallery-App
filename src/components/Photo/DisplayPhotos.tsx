@@ -6,14 +6,13 @@ interface objParamsProps {
     query:string,
     order:string,
     page:string
-    perPage:string
   }
 }
 
 export default async function DisplayPhotos({objParams}:objParamsProps ) {
-  const {query,order, page, perPage  } = objParams
-  const data = await getPhotos(query, order, page, perPage)
-  // console.log(data)
+  const { query,order, page } = objParams
+  const data = await getPhotos(query, order, page)
+  
   return (
     <ul className="list-photos grid-cols-gallery flex-1"> 
         {data?.results?.map(item => (

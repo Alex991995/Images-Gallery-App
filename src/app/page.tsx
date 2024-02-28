@@ -24,7 +24,6 @@ export default async function Home({searchParams}:PageProps ) {
     query: searchParams.query || 'food',
     order: searchParams.order_by,
     page: searchParams.page || '1',
-    perPage: '10',
   }
 
   const arrValue = ["nature", "food", "office", "cities", "space"];
@@ -44,7 +43,7 @@ export default async function Home({searchParams}:PageProps ) {
       <Suspense  fallback={<span className="loading loading-bars loading-lg absolute top-1/2 left-1/2"></span>}> 
         <DisplayPhotos objParams={objParams}/>   
       </Suspense>
-      <Pagination  perPage={objParams.perPage}/>
+      <Pagination />
     </section>
   )
 }

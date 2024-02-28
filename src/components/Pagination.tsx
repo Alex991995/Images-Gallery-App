@@ -2,13 +2,12 @@
 import { range, pagesCutting } from "@/helpers/functionHelpers"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 
-
-function Pagination({perPage}:{perPage:string}) {
+function Pagination() {
   const searchParams = useSearchParams()
   const pathname = usePathname()
   const { replace } = useRouter()
   // The API has only 200 pages
-  const wholePage = 20
+  const wholePage = 200
 
   let currentPage = Number(searchParams.get('page')) || 1
   const getPagesCut = pagesCutting(wholePage, currentPage)
