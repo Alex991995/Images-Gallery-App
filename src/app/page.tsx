@@ -31,6 +31,7 @@ export default async function Home({searchParams}:PageProps ) {
 
   return (
     <section className="flex flex-col">
+      
       <Suspense>
         <InputField />
       </Suspense>
