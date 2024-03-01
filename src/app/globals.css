@@ -5,7 +5,6 @@
 
 .box{
   @apply container mx-auto;
-  /* min-height: calc(100vh - 128px); */
 }
 
 .list-photos {

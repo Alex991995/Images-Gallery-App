@@ -31,7 +31,6 @@ export default async function Home({searchParams}:PageProps ) {
 
   return (
     <section className="flex flex-col">
-      
       <Suspense>
         <InputField />
       </Suspense>
@@ -40,7 +39,7 @@ export default async function Home({searchParams}:PageProps ) {
         <SelectValue arrValue={arrValue}/>
         <SelectOrder  arrOrder={arrOrder} />
       </div>
-      
+
       <Suspense  fallback={<span className="loading loading-bars loading-lg absolute top-1/2 left-1/2"></span>}> 
         <DisplayPhotos objParams={objParams}/>   
       </Suspense>

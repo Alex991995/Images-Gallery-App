@@ -4,7 +4,6 @@ import './globals.css'
 import  Header  from '@/components/Header/Header'
 import  Footer  from '@/components/Footer'
 import Providers from '@/app/Providers'
-import Head from 'next/head'
 
 const inter = Inter({ subsets: ['latin']})
 
@@ -19,12 +18,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      {/* <head>
-        <link rel="icon" href="/images/icons-photo1.svg" sizes="16x16" />
-      </head> */}
-      
-      
+    <html lang="en">      
       <body className={inter.className}>
         <Providers>
           <div className='flex flex-col min-h-screen'>
