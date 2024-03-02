@@ -10,7 +10,7 @@
 .list-photos {
   display: grid;
   gap: 1rem;
-  margin: 0 1rem 1rem 1rem;
+  margin: 1rem 1rem 1rem 1rem;
   min-height: 533px;
 
 }
@@ -31,10 +31,24 @@
   overflow: hidden;
 }
 
-
 .image {
   object-fit: cover;
   &:hover {
     opacity: 0.75;
   }
+}
+
+.grid-cols-favorites {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 300px) );
+}
+
+.modal-image {
+  @apply fixed inset-0 bg-black/40  backdrop-blur-sm flex justify-center items-center z-10;
+  animation-name: animation;
+  animation-duration: 0.5s;
+}
+
+@keyframes animation {
+  from {opacity: 0;}
+  to {opacity: 1;}
 }

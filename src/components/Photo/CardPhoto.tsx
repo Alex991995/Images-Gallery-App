@@ -4,8 +4,8 @@ import { Result } from "@/types/responseListPhotos";
 import { useSession } from "next-auth/react";
 import { usePhotos } from "@/store/store";
 import { MdOutlineFavoriteBorder }  from "react-icons/md"
-import ModalImage from "../Modal";
-import { Suspense, useState } from "react";
+import ModalImage from "../ModalImage";
+import {useState } from "react";
 
 type ResultProps = {
   item: Result
@@ -15,7 +15,7 @@ function CardPhoto({item}:ResultProps) {
   const [active, setActive] = useState(false)
   const session = useSession()
   const {addPhotos, photos} = usePhotos()
- 
+
   return (
     <li key={item.id} className="wrapper-image">
       <Image 
@@ -33,7 +33,7 @@ function CardPhoto({item}:ResultProps) {
       </span>}
       
       {active && 
-        <ModalImage img={item.urls.regular} active={active} setActive={setActive}/>
+        <ModalImage img={item.urls.regular} setActive={setActive}/>
       }
     </li>
   );

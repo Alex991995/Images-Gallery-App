@@ -15,9 +15,9 @@ export default async function DisplayPhotos({objParams}:objParamsProps ) {
   
   return (
     <ul className="list-photos grid-cols-gallery flex-1"> 
-        {data?.results?.map(item => (
-          <CardPhoto key={item.id} item={item}/>
-        ))}
-      </ul>
+      {data?.results?.map(item => (
+        <CardPhoto key={item.id} item={item}/>
+      ))}
+    </ul>
   )
 }

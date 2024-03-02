@@ -12,7 +12,6 @@ function SelectComponent({arrOrder}:SelectProps) {
   const { replace} = useRouter()
   const [value, setValue] = useState('')
 
-
   // EFFECT: Change param
   useEffect( () => { 
     const params = new URLSearchParams(searchParams)
@@ -21,7 +20,6 @@ function SelectComponent({arrOrder}:SelectProps) {
     replace(`${pathname}?${params.toString()}`)
 
   },[value, pathname, replace, searchParams])
-
 
   return (
     <select className="outline-none" value={value} onChange={(event) => setValue(event.target.value)}>

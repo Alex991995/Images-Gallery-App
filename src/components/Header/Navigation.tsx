@@ -26,10 +26,14 @@ function Navigation({navLinks}:Props) {
           </Link>
         )
       })}
-      {session.data?.user && <Link href="/profile">Profile</Link>}
-      {session.data?.user ? 
+      {session.data?.user && 
+      <Link className={`${pathname === '/profile' ? "text-yellow-200": ''}`} href="/profile">Profile</Link>}
+      
+      {session.data?.user 
+      ? 
       <Link href="#" onClick={() => signOut({callbackUrl: "/"})} 
-      className="text-orange-200 hover:text-orange-300">Sign out</Link> :
+      className="text-orange-200 hover:text-orange-300">Sign out</Link>
+      :
       <Link href="/api/auth/signin" className="text-orange-200 hover:text-orange-300">Sign in</Link>} 
     </>
   );

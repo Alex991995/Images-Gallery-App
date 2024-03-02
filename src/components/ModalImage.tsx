@@ -4,28 +4,27 @@ import { RxCross1 } from "react-icons/rx";
 
 interface IModalImageProps {
   img: string,
-  active: boolean,
   setActive: Dispatch<SetStateAction<boolean>>
 }
 
-function ModalImage({img, active, setActive}:IModalImageProps) {
+function ModalImage({img, setActive}:IModalImageProps) {
   return (
     <div 
       onClick={() => setActive(false)}
-      className=' fixed inset-0 bg-black/40  backdrop-blur-sm flex justify-center items-center z-10'>
+      className="modal-image">
       <div 
-        className='p-3 rounded-md relative '
+        className='relative overflow-hidden rounded-md' 
         onClick={e => e.stopPropagation()}>
         <Image 
           className=''
           src={img}
           alt='img'
-          width={600}
+          width={500}
           height={300}
         />
         <RxCross1 
           onClick={ () => setActive(false)}
-          className='absolute text-white text-3xl	top-[10%] right-9 hover:text-yellow-500'
+          className='absolute text-white text-3xl	top-[4%] right-9 hover:text-yellow-500'
         />
       </div>
     </div>
