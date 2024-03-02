@@ -1,4 +1,4 @@
-import ListofFavorites from "@/components/listofFavorites";
+import ListofFavorites from "@/components/ListofFavorites";
 import { getServerSession } from "next-auth/next"
 import { authConfig } from "@/config/auth";
 import Image from "next/image";
