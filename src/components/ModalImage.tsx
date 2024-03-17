@@ -16,7 +16,6 @@ function ModalImage({img, setActive}:IModalImageProps) {
         className='relative overflow-hidden rounded-md' 
         onClick={e => e.stopPropagation()}>
         <Image 
-          className=''
           src={img}
           alt='img'
           width={500}

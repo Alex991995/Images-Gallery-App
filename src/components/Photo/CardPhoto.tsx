@@ -13,13 +13,19 @@ type ResultProps = {
 
 function CardPhoto({item}:ResultProps) {
   const [active, setActive] = useState(false)
+  const [img, setImage] = useState<string | null>(null)
   const session = useSession()
   const {addPhotos, photos} = usePhotos()
-
+ 
+  function activeModal(active:boolean,img:string ) {
+    setActive(!active)
+    setImage(img)
+  }
   return (
-    <li key={item.id} className="wrapper-image">
+    <>
+     <li key={item.id} className="wrapper-image">
       <Image 
-        onClick={() => setActive(!active)}
+        onClick={() => activeModal(active, item.urls.regular)}
         src={item.urls.regular}  
         fill={true}  
         alt="gallery-photo" 
@@ -27,15 +33,17 @@ function CardPhoto({item}:ResultProps) {
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
       />
       {session.data?.user && 
-      <span className="right-1 absolute" onClick={ () => addPhotos(item.urls.regular)}>
+      <span className="right-1 absolute" onClick={() => addPhotos(item.urls.regular)}>
         <MdOutlineFavoriteBorder  
-        style={{ color:`${photos.includes(item.urls.regular) ? "red" : "white"} `, fontSize: "30px"}}/>
+        style={{ color:`${photos?.includes(item.urls.regular) ? "red" : "white"} `, fontSize: "30px"}}/>
       </span>}
-      
-      {active && 
-        <ModalImage img={item.urls.regular} setActive={setActive}/>
-      }
     </li>
+
+    {active && img &&
+      <ModalImage img={img} setActive={setActive}/>
+    }
+    </>
+   
   );
 }
 

@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth/next"
 import { authConfig } from "@/config/auth";
 import Image from "next/image";
 import { Suspense } from "react";
+import Loading from "./loading";
 
 async function Profile() {
   const session = await getServerSession(authConfig) 
@@ -14,7 +15,7 @@ async function Profile() {
         width={100}
         height={100}/>
       </div>
-      <Suspense  fallback={<span className="loading loading-bars loading-lg absolute top-1/2 left-1/2"></span>}>
+      <Suspense  fallback={<Loading />}>
         <ListofFavorites />
       </Suspense>
       

@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.wrapper {
+  display: grid;
+  grid-template-rows: 58px 1fr 57px;
+}
 
 .box{
   @apply container mx-auto;
@@ -43,7 +47,7 @@
 }
 
 .modal-image {
-  @apply fixed inset-0 bg-black/40  backdrop-blur-sm flex justify-center items-center z-10;
+  @apply fixed inset-0 bg-black/40  flex justify-center items-center z-10;
   animation-name: animation;
   animation-duration: 0.5s;
 }
